@@ -24,8 +24,8 @@ const Navbar = () => {
   }, [theme]);
 
   return (
-    <div className="navbar bg-base-100 shadow-lg px-4 sm:px-8">
-      <div className="flex-1">
+    <div className="navbar bg-base-100 shadow-lg px-4 sm:px-8 flex justify-between items-center">
+      <div className="flex items-center">
         <img
           src={logo}
           alt="OM"
@@ -33,8 +33,16 @@ const Navbar = () => {
         />
         <h1 className="text-lg font-bold mx-4">VidScape</h1>
       </div>
-      <div className="flex-none">
-        {/* Toggle button here */}
+      <div className="flex items-center">
+        {/* About Me Button */}
+        <a
+          className="btn-ghost text-red-500 #808080 hover:bg-slate-300 font-bold py-2 px-4 rounded-full mx-4"
+          href="https://react-tailwindcss-portfolio-sec.vercel.app/about"
+        >
+          About Me
+        </a>
+
+        {/* Toggle Button */}
         <button className="btn btn-square btn-ghost">
           <label className="swap swap-rotate w-12 h-12">
             <input

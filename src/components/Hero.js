@@ -68,10 +68,19 @@ const Hero = () => {
   }, []);
 
   return (
-    <div className="flex flex-col h-screen">
+    <div
+      className="flex flex-col h-screen"
+      style={{
+        background: selectedFile
+          ? undefined
+          : "url('https://t4.ftcdn.net/jpg/02/07/15/43/240_F_207154340_wLIJus4m3SBl5sAQmpqN3Um7REnUhskU.jpg')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
       <div className="flex justify-center">
         {!selectedFile && (
-          <div className="w-full sm:max-w-xs mt-1 translate-y-80">
+          <div className="w-full sm:max-w-xs mt-1 translate-y-80 transform hover:scale-x-110 transition-transform duration-300">
             <input
               type="file"
               className="file-input file-input-bordered file-input-primary w-full max-w-xs mt-2"
@@ -80,7 +89,7 @@ const Hero = () => {
           </div>
         )}
         {selectedFile && (
-          <div className="w-full sm:max-w-xs mt-2">
+          <div className="w-full sm:max-w-xs mt-2 transform hover:scale-110 transition-transform duration-300">
             <input
               type="file"
               className="file-input file-input-bordered file-input-primary w-full max-w-xs mt-2"
