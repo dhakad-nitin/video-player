@@ -1,70 +1,78 @@
-# Getting Started with Create React App
+# VidScape - Frontend Web App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Overview
 
-## Available Scripts
+VidScape is a frontend web application created using `create-react-app` to provide a seamless experience for playing videos from your local storage. It features a custom-built video player with additional functionalities, including video playback controls, a waveform visualization of the video's audio, and a sleek user interface using Daisy UI and Tailwind CSS.
 
-In the project directory, you can run:
+## Installation
 
-### `npm start`
+To run VidScape locally, follow these steps:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+1. Clone the repository:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+   ```bash
+   git clone https://github.com/dhakad-nitin/video-player
+   cd VidScape
+   ```
 
-### `npm test`
+2. Install dependencies using npm:
+   ```bash
+   npm install
+   ```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Usage
 
-### `npm run build`
+After successfully installing the dependencies, you can start the development server:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+npm run start
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+This command will launch the application in your default web browser. If it doesn't open automatically, you can visit [http://localhost:3000](http://localhost:3000) in your browser.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Features
 
-### `npm run eject`
+### Video Player
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- Custom video player built from scratch using p5.js to draw the canvas.
+- Playback controls: play/pause, forward 10 seconds, backward 10 seconds.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### UI Components
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- Utilizes Daisy UI for a visually appealing theme.
+- Tailwind CSS for clean and responsive inline styling.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Audio Waveform
 
-## Learn More
+- Integrates wavesurfer.js to generate and display the waveform of the video's audio.
+- Provides a visual representation of the audio data, enhancing the user experience.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Metadata Display
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Displays video metadata on the right side of the video player.
+- Allows users to view essential information about the currently playing video.
 
-### Code Splitting
+## Technologies Used
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- React (create-react-app)
+- p5.js
+- Daisy UI
+- Tailwind CSS
+- wavesurfer.js
 
-### Analyzing the Bundle Size
+## Contribution
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Contributions are welcome! If you have any suggestions, bug reports, or feature requests, please open an issue on the [GitHub repository](https://github.com/your-username/VidScape).
 
-### Making a Progressive Web App
+## Author
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- **Nitin Dhakad**
+- [Portfolio](https://react-tailwindcss-portfolio-sec.vercel.app/)
 
-### Advanced Configuration
+## Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+The project is deployed on Vercel. You can access it [here](https://video-player-deploy.vercel.app/).
 
-### Deployment
+## License
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
