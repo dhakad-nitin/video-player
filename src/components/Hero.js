@@ -2,46 +2,35 @@ import { useState, useRef, useEffect } from "react";
 import VideoPlayer from "./Videoplayer";
 import WaveSurfer from "wavesurfer.js";
 import VideoMetaData from "./VideoMetadata";
-
 const Hero = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const wavesurferRef = useRef(null);
   const videoPlayerRef = useRef(null);
-
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     setSelectedFile(file);
-
     cleanupWaveform();
 
     if (file) {
-      const audioContext = new (window.AudioContext ||
-        window.webkitAudioContext)();
-      if (!audioContext) {
-        console.error("Web Audio API is not supported in this browser");
-        return;
-      }
-
       const reader = new FileReader();
       reader.onloadend = () => {
-        if (file.type.startsWith("video/") && file.type.includes("audio")) {
+        if (file.type.startsWith("video/")) {
+          // Check if the video has audio
+          const audioContext = new (window.AudioContext ||
+            window.webkitAudioContext)();
           const audioBuffer = audioContext.createBuffer(1, 1, 22050);
           const source = audioContext.createBufferSource();
           source.buffer = audioBuffer;
           source.connect(audioContext.destination);
+          source.start();
 
           source.onended = () => {
-            try {
-              console.log("Video has audio");
-              initializeWaveform(file);
-            } catch (error) {
-              console.error("Error decoding audio data:", error);
-            }
+            // If onended is called, the video has audio
+            console.log("Video has audio");
+            initializeWaveform(file);
           };
-
-          source.start();
         } else {
-          alert("The selected file does not contain audio.");
+          alert("The selected file is not a video.");
           setSelectedFile(null);
         }
       };
@@ -50,6 +39,7 @@ const Hero = () => {
   };
 
   const initializeWaveform = (file) => {
+    // Initialize WaveSurfer
     wavesurferRef.current = WaveSurfer.create({
       container: "#waveform",
       waveColor: "#808080",
@@ -57,6 +47,7 @@ const Hero = () => {
       height: 50,
     });
 
+    // Load audio file into WaveSurfer
     wavesurferRef.current.load(URL.createObjectURL(file));
   };
 
@@ -66,13 +57,11 @@ const Hero = () => {
       wavesurferRef.current = null;
     }
   };
-
   useEffect(() => {
     return () => {
       cleanupWaveform();
     };
   }, []);
-
   return (
     <div
       className="flex flex-col h-screen"
@@ -104,7 +93,6 @@ const Hero = () => {
           </div>
         )}
       </div>
-
       <div className="hero translate-y-36">
         <div className="hero-content text-center ">
           {!selectedFile && (
@@ -134,5 +122,4 @@ const Hero = () => {
     </div>
   );
 };
-
 export default Hero;
