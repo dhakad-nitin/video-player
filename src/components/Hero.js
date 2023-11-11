@@ -48,7 +48,6 @@ const Hero = () => {
       waveColor: "#808080",
       progressColor: "#6419E6",
       height: 50,
-      interact: false,
     });
 
     // Load audio file into WaveSurfer
@@ -62,18 +61,6 @@ const Hero = () => {
     }
   };
 
-  const handlePlayPause = (isPaused) => {
-    if (wavesurferRef.current) {
-      if (isPaused) {
-        // Video is paused, stop WaveSurfer
-        wavesurferRef.current.pause();
-      } else {
-        // Video is playing, start or resume WaveSurfer
-        wavesurferRef.current.play();
-      }
-    }
-  };
-
   useEffect(() => {
     return () => {
       cleanupWaveform();
@@ -83,12 +70,34 @@ const Hero = () => {
   return (
     <div className="flex flex-col h-screen">
       <div className="flex justify-center">
-        <div className="w-full sm:max-w-xs mt-2">
-          <input
-            type="file"
-            className="file-input file-input-bordered file-input-primary w-full max-w-xs mt-2"
-            onChange={handleFileChange}
-          />
+        {!selectedFile && (
+          <div className="w-full sm:max-w-xs mt-1 translate-y-80">
+            <input
+              type="file"
+              className="file-input file-input-bordered file-input-primary w-full max-w-xs mt-2"
+              onChange={handleFileChange}
+            />
+          </div>
+        )}
+        {selectedFile && (
+          <div className="w-full sm:max-w-xs mt-2">
+            <input
+              type="file"
+              className="file-input file-input-bordered file-input-primary w-full max-w-xs mt-2"
+              onChange={handleFileChange}
+            />
+          </div>
+        )}
+      </div>
+
+      <div className="hero translate-y-36">
+        <div className="hero-content text-center ">
+          {!selectedFile && (
+            <div className="max-w-md">
+              <h1 className="text-5xl font-bold">Hello there</h1>
+              <p className="py-4">Please provide a video file to get started</p>
+            </div>
+          )}
         </div>
       </div>
       <div className="flex-grow">
@@ -97,7 +106,6 @@ const Hero = () => {
             <VideoPlayer
               videoFile={URL.createObjectURL(selectedFile)}
               ref={videoPlayerRef}
-              onPlayPause={handlePlayPause}
             />
             <VideoMetaData selectedFile={selectedFile} />
           </>

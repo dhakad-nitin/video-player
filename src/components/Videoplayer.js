@@ -3,7 +3,7 @@
 import React, { useRef, useEffect } from "react";
 import p5 from "p5";
 
-const VideoPlayer = React.forwardRef(({ videoFile, onPlayPause }, ref) => {
+const VideoPlayer = React.forwardRef(({ videoFile }, ref) => {
   const videoRef = useRef(null);
   const canvas = useRef(null);
   const forwardButton = useRef(null);
@@ -71,7 +71,7 @@ const VideoPlayer = React.forwardRef(({ videoFile, onPlayPause }, ref) => {
           p.mouseY <= p.height - 10
         ) {
           togglePlayPause();
-          onPlayPause(videoRef.current.elt.paused);
+          // onPlayPause(videoRef.current.elt.paused);
         }
 
         // Forward button
@@ -140,7 +140,7 @@ const VideoPlayer = React.forwardRef(({ videoFile, onPlayPause }, ref) => {
       videoSketch.remove();
       window.removeEventListener("resize", centerCanvas);
     };
-  }, [videoFile, onPlayPause]);
+  }, [videoFile]);
 
   return <div className="justify-center"></div>;
 });
