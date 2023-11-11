@@ -1,40 +1,49 @@
-import { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import VideoPlayer from "./Videoplayer";
 import WaveSurfer from "wavesurfer.js";
 import VideoMetaData from "./VideoMetadata";
+
 const Hero = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const wavesurferRef = useRef(null);
   const videoPlayerRef = useRef(null);
-  const handleFileChange = (event) => {
+
+  const handleFileChange = async (event) => {
     const file = event.target.files[0];
     setSelectedFile(file);
     cleanupWaveform();
 
     if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        if (file.type.startsWith("video/")) {
-          // Check if the video has audio
+      const isVideo = file.type.startsWith("video/");
+
+      if (isVideo) {
+        try {
           const audioContext = new (window.AudioContext ||
             window.webkitAudioContext)();
-          const audioBuffer = audioContext.createBuffer(1, 1, 22050);
-          const source = audioContext.createBufferSource();
-          source.buffer = audioBuffer;
-          source.connect(audioContext.destination);
-          source.start();
+          const arrayBuffer = await file.arrayBuffer();
+          const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
 
-          source.onended = () => {
-            // If onended is called, the video has audio
+          // Check if the audio duration is greater than 0
+          if (audioBuffer.duration > 0) {
             console.log("Video has audio");
             initializeWaveform(file);
-          };
-        } else {
-          alert("The selected file is not a video.");
+          } else {
+            alert(
+              "The selected video does not have audio. Please upload a video with sound."
+            );
+            setSelectedFile(null);
+          }
+        } catch (error) {
+          console.error("Error decoding audio:", error);
+          alert(
+            "Error video file has no audio. Please try again with a different video."
+          );
           setSelectedFile(null);
         }
-      };
-      reader.readAsDataURL(file);
+      } else {
+        alert("The selected file is not a video.");
+        setSelectedFile(null);
+      }
     }
   };
 
@@ -57,11 +66,13 @@ const Hero = () => {
       wavesurferRef.current = null;
     }
   };
+
   useEffect(() => {
     return () => {
       cleanupWaveform();
     };
   }, []);
+
   return (
     <div
       className="flex flex-col h-screen"
@@ -122,4 +133,5 @@ const Hero = () => {
     </div>
   );
 };
+
 export default Hero;
