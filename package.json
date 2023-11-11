@@ -6,12 +6,15 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "ffprobe-client": "^1.1.6",
+    "get-video-duration": "^4.1.0",
+    "os-browserify": "^0.3.0",
     "p5": "^1.8.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-p5-wrapper": "^4.1.2",
     "react-scripts": "5.0.1",
-    "wavesurfer.js": "^7.4.4",
+    "wavesurfer.js": "^7.4.5",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
