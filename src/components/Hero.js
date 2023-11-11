@@ -15,25 +15,33 @@ const Hero = () => {
     cleanupWaveform();
 
     if (file) {
+      const audioContext = new (window.AudioContext ||
+        window.webkitAudioContext)();
+      if (!audioContext) {
+        console.error("Web Audio API is not supported in this browser");
+        return;
+      }
+
       const reader = new FileReader();
       reader.onloadend = () => {
-        if (file.type.startsWith("video/")) {
-          // Check if the video has audio
-          const audioContext = new (window.AudioContext ||
-            window.webkitAudioContext)();
+        if (file.type.startsWith("video/") && file.type.includes("audio")) {
           const audioBuffer = audioContext.createBuffer(1, 1, 22050);
           const source = audioContext.createBufferSource();
           source.buffer = audioBuffer;
           source.connect(audioContext.destination);
-          source.start();
 
           source.onended = () => {
-            // If onended is called, the video has audio
-            console.log("Video has audio");
-            initializeWaveform(file);
+            try {
+              console.log("Video has audio");
+              initializeWaveform(file);
+            } catch (error) {
+              console.error("Error decoding audio data:", error);
+            }
           };
+
+          source.start();
         } else {
-          alert("The selected file is not a video.");
+          alert("The selected file does not contain audio.");
           setSelectedFile(null);
         }
       };
@@ -42,7 +50,6 @@ const Hero = () => {
   };
 
   const initializeWaveform = (file) => {
-    // Initialize WaveSurfer
     wavesurferRef.current = WaveSurfer.create({
       container: "#waveform",
       waveColor: "#808080",
@@ -50,7 +57,6 @@ const Hero = () => {
       height: 50,
     });
 
-    // Load audio file into WaveSurfer
     wavesurferRef.current.load(URL.createObjectURL(file));
   };
 
