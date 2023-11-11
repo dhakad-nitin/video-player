@@ -103,8 +103,10 @@ const Hero = () => {
         <div className="hero-content text-center ">
           {!selectedFile && (
             <div className="max-w-md">
-              <h1 className="text-5xl font-bold">Hello there</h1>
-              <p className="py-4">Please provide a video file to get started</p>
+              <h1 className="text-5xl font-bold text-white">Hello there</h1>
+              <p className="py-4 text-white">
+                Please provide a video file to get started
+              </p>
             </div>
           )}
         </div>
